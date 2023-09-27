@@ -1,0 +1,9 @@
+#searchbar {
+    display: flex;
+    background: lightgray;
+    margin: 0.5%;
+}
+
+menu.div {
+    border:1px solid black;
+}
