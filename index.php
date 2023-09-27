@@ -1,12 +1,3 @@
-<?php
-try {
-    $bdd = new PDO('mysql:host=localhost;dbname=fiche_salarie;charset=utf8', 'root', '');
-} catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +15,14 @@ try {
         <div id="title">AmsetHR</div>
         <menu id="searchbar">
             <div id="site">
-                <? echo '<a class="searchbar_option">', $site, '</a>' ?>
+                <?php include("connexion.php");
+                $site = $conn->query('SELECT nom_competence FROM fiche_salarie.competences');
+                foreach ($site as &$value) { ?>
+                    <a class="searchbar_option">
+                        <?php $value ?>
+                    </a>
+                <?php }
+                ?>
                 <!--
                 Développement projet
                 Administration système et réseau
