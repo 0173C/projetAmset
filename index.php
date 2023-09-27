@@ -16,8 +16,10 @@
         <menu id="searchbar">
             <div id="site">
                 <?php include("connexion.php");
-                $site = $conn->query('SELECT nom_competence FROM fiche_salarie.competences');
-                foreach ($site as &$value) { ?>
+                $competences = "SELECT nomCompetence FROM fiche_salarie.competences";
+                $result = $conn->query($competences);
+                echo '<a>', $result, '</a>';
+                foreach ($result as &$value) { ?>
                     <a class="searchbar_option">
                         <?php $value ?>
                     </a>
