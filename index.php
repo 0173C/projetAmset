@@ -15,16 +15,31 @@
         <div id="title">AmsetHR</div>
         <menu id="searchbar">
             <div id="site">
-                <?php include("connexion.php");
+                <?php
+                include("connexion.php");
                 $competences = "SELECT nomCompetence FROM fiche_salarie.competences";
                 $result = $conn->query($competences);
-                echo '<a>', $result, '</a>';
-                foreach ($result as &$value) { ?>
-                    <a class="searchbar_option">
-                        <?php $value ?>
-                    </a>
-                <?php }
+
+                echo '<div id="menu_competence">';
+                while ($row = mysqli_fetch_array($result)) {
+                    echo '<div class="button"><input type="checkbox" class="searchbar_option_competence" id="' . $row['nomCompetence'] . '">' . $row['nomCompetence'] . '</input></div>';
+                }
+
+                echo '</div></br>
+                <div id="menu_site">';
+
+                $sites = "SELECT nomSite FROM fiche_salarie.sites";
+                $result = $conn->query($sites);
+
+                while ($row = mysqli_fetch_array($result)) {
+                    echo '<div class="button"><input type="checkbox" class="searchbar_option_sites" id="' . $row['nomSite'] . '">' . $row['nomSite'] . '</input></div>';
+                }
+
+                echo '</div>';
+
                 ?>
+
+
                 <!--
                 Développement projet
                 Administration système et réseau

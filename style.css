@@ -1,9 +1,38 @@
 #searchbar {
-    display: flex;
     background: lightgray;
-    margin: 0.5%;
+    padding: 3%;
+    margin: 2%;
+    text-align: center;
 }
 
 menu.div {
-    border:1px solid black;
+    border: 1px solid black;
+    display: inline;
+}
+
+.button {
+    background-color: lightblue;
+    border: 1px solid black;
+    margin: 0.3%;
+    padding: 1%;
+    display: inline;
+}
+
+.button:hover {
+    background-color: white;
+    cursor: pointer;
+}
+
+.searchbar_option {
+    margin: 2%;
+    padding: 3%;
+    display: inline;
+}
+
+#menu_competence {
+    border: 1px solid black;
+}
+
+#menu_site {
+    border: 1px solid black;
 }
