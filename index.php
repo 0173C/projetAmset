@@ -20,14 +20,14 @@
                 $competences = "SELECT nomCompetence FROM fiche_salarie.competences";
                 $result = $conn->query($competences);
 
-                echo '<div id="menu_competence">';
+                echo '<div id="menu_competence">'; // -- Menu choix compétences
                 while ($row = mysqli_fetch_array($result)) {
                     echo '<div class="button"><input type="checkbox" class="searchbar_option_competence" id="' . $row['nomCompetence'] . '">' . $row['nomCompetence'] . '</input></div>';
                 }
 
                 echo '</div></br>
-                <div id="menu_site">';
-
+                <div id="menu_site">'; // -- Menu choix site
+                
                 $sites = "SELECT nomSite FROM fiche_salarie.sites";
                 $result = $conn->query($sites);
 
@@ -37,21 +37,13 @@
 
                 echo '</div>';
 
+                // -- Affichage des résultats
+                
+                $retour = "SELECT * FROM fiche_salarie.salarie WHERE $site=sites.idSite";
+                foreach ($retour as $key => $value) {
+                    echo '<a class="research_result">', $value, '</a></br>';
+                }
                 ?>
-
-
-                <!--
-                Développement projet
-                Administration système et réseau
-                Conception d'applications
-                Intégration d'applications
-                Développement Web
-            </div><br />
-            <div id="competence">
-                Paris
-                Madrid
-                Montréal
-                Casablanca -->
             </div>
         </menu>
     </main>
