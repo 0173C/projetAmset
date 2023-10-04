@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>AmsetHR</title>
     <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="icon" href="icon.png" type="image/x-icon">
 </head>
 
 <body>
@@ -39,10 +39,13 @@
 
                 // -- Affichage des résultats
                 
+                /*
                 $retour = "SELECT * FROM fiche_salarie.salarie WHERE $site=sites.idSite";
                 foreach ($retour as $key => $value) {
                     echo '<a class="research_result">', $value, '</a></br>';
                 }
+                */
+                
                 ?>
             </div>
         </menu>

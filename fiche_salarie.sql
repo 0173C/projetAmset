@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 20 sep. 2023 à 14:10
--- Version du serveur :  5.7.31
--- Version de PHP : 7.4.9
+-- Généré le : mer. 04 oct. 2023 à 14:49
+-- Version du serveur : 8.0.31
+-- Version de PHP : 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `competences`;
 CREATE TABLE IF NOT EXISTS `competences` (
-  `idCompetence` int(11) NOT NULL AUTO_INCREMENT,
+  `idCompetence` int NOT NULL AUTO_INCREMENT,
   `nomCompetence` char(32) NOT NULL,
   PRIMARY KEY (`idCompetence`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
@@ -53,19 +53,55 @@ INSERT INTO `competences` (`idCompetence`, `nomCompetence`) VALUES
 
 DROP TABLE IF EXISTS `salarie`;
 CREATE TABLE IF NOT EXISTS `salarie` (
-  `idSalarie` int(11) NOT NULL AUTO_INCREMENT,
+  `idSalarie` int NOT NULL AUTO_INCREMENT,
   `nomSalarie` char(32) NOT NULL,
   `prenomSalarie` char(32) NOT NULL,
   `civilite` char(32) NOT NULL,
   `email` char(128) NOT NULL,
-  `telephonne` int(11) NOT NULL,
+  `telephonne` int NOT NULL,
   `adresse` char(128) NOT NULL,
-  `codePostal` int(11) NOT NULL,
+  `codePostal` int NOT NULL,
   `ville` char(128) NOT NULL,
-  `site` smallint(6) NOT NULL,
-  `competences` int(11) NOT NULL,
+  `site` smallint NOT NULL,
+  `competences` int NOT NULL,
   PRIMARY KEY (`idSalarie`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `salarie`
+--
+
+INSERT INTO `salarie` (`idSalarie`, `nomSalarie`, `prenomSalarie`, `civilite`, `email`, `telephonne`, `adresse`, `codePostal`, `ville`, `site`, `competences`) VALUES
+(1, 'Dupont', 'Jean', 'homme', 'jean.dupont@email.com', 1234567890, '123 Rue de la Ville', 75000, 'Paris', 1, 11010),
+(2, 'Martin', 'Sophie', 'femme', 'sophie.martin@email.com', 2147483647, '456 Avenue des Champs', 69000, 'Lyon', 2, 10101),
+(3, 'Lefebvre', 'Pierre', 'homme', 'pierre.lefebvre@email.com', 2147483647, '789 Boulevard des Fleurs', 31000, 'Toulouse', 3, 10000),
+(4, 'Dubois', 'Marie', 'femme', 'marie.dubois@email.com', 2147483647, '321 Rue de la Mer', 13000, 'Marseille', 4, 1010),
+(5, 'Leclerc', 'Paul', 'homme', 'paul.leclerc@email.com', 2147483647, '567 Avenue du Soleil', 44000, 'Nantes', 1, 100),
+(6, 'Garcia', 'Isabelle', 'femme', 'isabelle.garcia@email.com', 2147483647, '234 Rue de la Montagne', 59000, 'Lille', 2, 10011),
+(7, 'Thomas', 'François', 'homme', 'francois.thomas@email.com', 2147483647, '876 Boulevard de la Plage', 75000, 'Paris', 3, 10110),
+(8, 'Robert', 'Catherine', 'femme', 'catherine.robert@email.com', 2147483647, '765 Avenue de la Forêt', 69000, 'Lyon', 4, 11000),
+(9, 'Petit', 'David', 'homme', 'david.petit@email.com', 2147483647, '123 Rue du Lac', 31000, 'Toulouse', 1, 110),
+(10, 'Roussel', 'Émilie', 'femme', 'emilie.roussel@email.com', 2147483647, '432 Avenue de la Rivière', 13000, 'Marseille', 2, 1001),
+(11, 'Durand', 'Nicolas', 'homme', 'nicolas.durand@email.com', 2147483647, '678 Boulevard de la Montagne', 44000, 'Nantes', 3, 11001),
+(12, 'Moreau', 'Anne', 'femme', 'anne.moreau@email.com', 2147483647, '987 Rue de la Plage', 59000, 'Lille', 4, 111),
+(13, 'Lopez', 'Philippe', 'homme', 'philippe.lopez@email.com', 2147483647, '234 Avenue des Fleurs', 75000, 'Paris', 1, 11100),
+(14, 'Gonzalez', 'Sylvie', 'femme', 'sylvie.gonzalez@email.com', 2147483647, '876 Boulevard de la Ville', 69000, 'Lyon', 2, 1010),
+(15, 'Sanchez', 'Richard', 'homme', 'richard.sanchez@email.com', 2147483647, '321 Rue de la Montagne', 31000, 'Toulouse', 3, 10001),
+(16, 'Ramirez', 'Julie', 'femme', 'julie.ramirez@email.com', 2147483647, '543 Avenue des Champs', 13000, 'Marseille', 4, 10100),
+(17, 'Torres', 'François', 'homme', 'francois.torres@email.com', 2147483647, '765 Rue de la Forêt', 44000, 'Nantes', 1, 10010),
+(18, 'García', 'Laura', 'femme', 'laura.garcia@email.com', 2147483647, '123 Avenue de la Rivière', 59000, 'Lille', 2, 11010),
+(19, 'Lopez', 'Jean', 'homme', 'jean.lopez@email.com', 2147483647, '432 Boulevard de la Montagne', 75000, 'Paris', 3, 1000),
+(20, 'Perez', 'Sophie', 'femme', 'sophie.perez@email.com', 2147483647, '567 Rue de la Mer', 69000, 'Lyon', 4, 10011),
+(21, 'Martin', 'Pierre', 'homme', 'pierre.martin@email.com', 2147483647, '876 Avenue du Soleil', 31000, 'Toulouse', 1, 10101),
+(22, 'Dubois', 'Marie', 'femme', 'marie.dubois@email.com', 2147483647, '765 Boulevard des Fleurs', 13000, 'Marseille', 2, 1100),
+(23, 'Thomas', 'Paul', 'homme', 'paul.thomas@email.com', 2147483647, '234 Rue de la Montagne', 44000, 'Nantes', 3, 10),
+(24, 'Robert', 'Isabelle', 'femme', 'isabelle.robert@email.com', 2147483647, '543 Avenue de la Forêt', 59000, 'Lille', 4, 10110),
+(25, 'Petit', 'David', 'homme', 'david.petit@email.com', 2147483647, '987 Rue de la Rivière', 75000, 'Paris', 1, 1101),
+(26, 'Roussel', 'Émilie', 'femme', 'emilie.roussel@email.com', 2147483647, '123 Avenue des Champs', 69000, 'Lyon', 2, 11011),
+(27, 'Durand', 'Nicolas', 'homme', 'nicolas.durand@email.com', 2147483647, '876 Boulevard de la Ville', 31000, 'Toulouse', 3, 101),
+(28, 'Moreau', 'Anne', 'femme', 'anne.moreau@email.com', 2147483647, '567 Rue de la Mer', 13000, 'Marseille', 4, 11110),
+(29, 'Lopez', 'Philippe', 'homme', 'philippe.lopez@email.com', 2147483647, '765 Avenue du Soleil', 44000, 'Nantes', 1, 100),
+(30, 'Gonzalez', 'Sylvie', 'femme', 'sylvie.gonzalez@email.com', 2147483647, '234 Rue de la Rivière', 59000, 'Lille', 2, 10010);
 
 -- --------------------------------------------------------
 
@@ -75,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `salarie` (
 
 DROP TABLE IF EXISTS `sites`;
 CREATE TABLE IF NOT EXISTS `sites` (
-  `idSite` int(11) NOT NULL AUTO_INCREMENT,
+  `idSite` int NOT NULL AUTO_INCREMENT,
   `nomSite` char(128) NOT NULL,
   PRIMARY KEY (`idSite`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
