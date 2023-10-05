@@ -1,15 +1,6 @@
 <?php
 include("connexion.php");
-$salarie = "SELECT nomSalarie FROM fiche_salarie.salarie";
-$salarie = "SELECT prenomSalarie FROM fiche_salarie.salarie";
-$salarie = "SELECT civilite FROM fiche_salarie.salarie";
-$salarie = "SELECT email FROM fiche_salarie.salarie";
-$salarie = "SELECT telephonne FROM fiche_salarie.salarie";
-$salarie = "SELECT adresse FROM fiche_salarie.salarie";
-$salarie = "SELECT codePostal FROM fiche_salarie.salarie";
-$salarie = "SELECT ville FROM fiche_salarie.salarie";
-$salarie = "SELECT site FROM fiche_salarie.salarie";
-$salarie = "SELECT competences FROM fiche_salarie.salarie";
+$salarie = "SELECT * FROM fiche_salarie.salarie";
 $result = $conn->query($salarie);
 $competences = "SELECT nomCompetence FROM fiche_salarie.competences";
 $result = $conn->query($competences);
