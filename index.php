@@ -8,6 +8,7 @@
     <title>AmsetHR</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="icon.png" type="image/x-icon">
+    <script src="script.js"></script>
 </head>
 
 <body>
@@ -22,7 +23,7 @@
 
                 echo '<div id="menu_competence">'; // -- Menu choix compétences
                 while ($row = mysqli_fetch_array($result)) {
-                    echo '<div class="button"><input type="checkbox" class="searchbar_option_competence" id="' . $row['nomCompetence'] . '">' . $row['nomCompetence'] . '</input></div>';
+                    echo '<div class="button"><input type="checkbox" class="searchbar_option_competence" id="' . $row['nomCompetence'] . '" name="' . $row['nomCompetence'] . '">' . $row['nomCompetence'] . '</input></div>';
                 }
 
                 echo '</div></br>
@@ -35,22 +36,17 @@
                     echo '<div class="button"><input type="checkbox" class="searchbar_option_sites" id="' . $row['nomSite'] . '">' . $row['nomSite'] . '</input></div>';
                 }
 
-                echo '</div>';
+                echo '</div></br> <button type="button" id="recherche" onclick="rechercher()">Rechercher</button>';
 
                 // -- Affichage des résultats
                 
-                /*
-                $retour = "SELECT * FROM fiche_salarie.salarie WHERE $site=sites.idSite";
-                foreach ($retour as $key => $value) {
-                    echo '<a class="research_result">', $value, '</a></br>';
-                }
-                */
-                
                 ?>
+
+                <div id='retour'>Résultats : </div>
+
             </div>
         </menu>
     </main>
-    <script src="index.js"></script>
 </body>
 
 </html>

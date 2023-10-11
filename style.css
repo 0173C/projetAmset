@@ -36,3 +36,7 @@ menu.div {
 #menu_site {
     border: 1px solid black;
 }
+
+div#retour {
+    border: 1px solid black;
+}
