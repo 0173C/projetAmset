@@ -22,3 +22,7 @@ function rechercher() {
     xmlhttp.open("POST", "recherche.php");
     xmlhttp.send();
 }
+
+function logout() {
+    window.location.href = "logout.php"
+}
