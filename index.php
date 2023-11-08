@@ -2,9 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>AmsetHR</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="icon.png" type="image/x-icon">
@@ -17,13 +16,14 @@
         <menu id="searchbar">
             <div id="site">
                 <?php
+                header('content-type: text/html; charset=utf-8');
                 include("connexion.php");
                 $competences = "SELECT nomCompetence FROM fiche_salarie.competences";
                 $result = $conn->query($competences);
 
                 echo '<div id="menu_competence">'; // -- Menu choix compétences
                 while ($row = mysqli_fetch_array($result)) {
-                    echo '<div class="button"><input type="checkbox" class="searchbar_option_competence" id="' . $row['nomCompetence'] . '" name="' . $row['nomCompetence'] . '">' . $row['nomCompetence'] . '</input></div>';
+                    echo '<div class="button"><input type="checkbox" class="searchbar_option_competence" id="' . $row['nomCompetence'] . '" name="' . $row['nomCompetence'] . '"><label for="' . $row['nomCompetence'] . '">' . $row['nomCompetence'] . '</label></div>';
                 }
 
                 echo '</div></br>
@@ -33,7 +33,7 @@
                 $result = $conn->query($sites);
 
                 while ($row = mysqli_fetch_array($result)) {
-                    echo '<div class="button"><input type="checkbox" class="searchbar_option_sites" id="' . $row['nomSite'] . '">' . $row['nomSite'] . '</input></div>';
+                    echo '<div class="button"><input type="checkbox" class="searchbar_option_sites" id="' . $row['nomSite'] . '"><label for="' . $row['nomSite'] . '">' . $row['nomSite'] . '</label></div>';
                 }
 
                 echo '</div></br> <button type="button" id="recherche" onclick="rechercher()">Rechercher</button>';

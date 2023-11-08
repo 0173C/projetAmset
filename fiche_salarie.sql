@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `competences` (
   `idCompetence` int NOT NULL AUTO_INCREMENT,
   `nomCompetence` char(32) NOT NULL,
   PRIMARY KEY (`idCompetence`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8_general_ci ;
 
 --
 -- Déchargement des données de la table `competences`
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `salarie` (
   `site` smallint NOT NULL,
   `competences` int NOT NULL,
   PRIMARY KEY (`idSalarie`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `salarie`
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `sites` (
   `idSite` int NOT NULL AUTO_INCREMENT,
   `nomSite` char(128) NOT NULL,
   PRIMARY KEY (`idSite`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `sites`
