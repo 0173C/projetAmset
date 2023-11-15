@@ -25,3 +25,7 @@ function rechercher() {
 function logout() {
     window.location.href = "logout.php"
 }
+
+function redirectFicheSalarie(id) {
+    window.location.href = 'feuille_salaries.php?id=' + id;
+}
