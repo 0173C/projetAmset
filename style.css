@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body{
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -42,4 +43,8 @@ menu.div {
 div#retour {
     border: 5px solid rgb(8, 97, 20);
     background-color: rgb(121, 197, 114);
+}
+
+.button {
+    cursor: pointer;
 }

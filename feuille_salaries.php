@@ -1,8 +1,8 @@
 <?php
-include("index.php");
 header('content-type: text/html; charset=utf-8');
 include("connexion.php"); // connexion BDD 
-
+include("index.php");
+include("connexion.php");
 
 $salarie = "SELECT * FROM fiche_salarie.salarie WHERE idSalarie = 1 ";
 $result = $conn->query($salarie);

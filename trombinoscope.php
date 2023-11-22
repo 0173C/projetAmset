@@ -16,6 +16,31 @@ if (!isset($_SESSION['privilege'])) {
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="icon.png" type="image/x-icon">
     <script src="script.js"></script>
+    <script>
+        function fetchSalarieData() {
+            fetch('') 
+                .then(response => response.json())
+                .then(data => {
+                    let retourDiv = document.getElementById('retour');
+                    data.forEach(salarie => {
+                        retourDiv.innerHTML += `<div>
+                            <p>Nom: ${salarie.nomSalarie}</p>
+                            <p>Prénom: ${salarie.prenomSalarie}</p>
+                            <p>Civilite: ${salarie.civilite}</p>
+                            <p>Email: ${salarie.email}</p>
+                            <!-- Ajoutez d'autres données que vous souhaitez afficher -->
+                        </div>`;
+                    });
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération des données:', error);
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchSalarieData();
+        });
+    </script>
 </head>
 
 <body>
@@ -29,14 +54,14 @@ if (!isset($_SESSION['privilege'])) {
                     $competences = "SELECT nomCompetence FROM fiche_salarie.competences";
                     $result = $conn->query($competences);
 
-                    echo '<div id="menu_competence">'; // -- Menu choix compétences
+                    echo '<div id="menu_competence">'; 
                     while ($row = mysqli_fetch_array($result)) {
                         echo '<div class="button"><input type="checkbox" class="searchbar_option_competence" id="' . $row['nomCompetence'] . '" name="' . $row['nomCompetence'] . '">' . $row['nomCompetence'] . '</input></div>';
                     }
 
                     echo '</div></br>
-                <div id="menu_site">'; // -- Menu choix site
-                    
+                <div id="menu_site">'; 
+
                     $sites = "SELECT nomSite FROM fiche_salarie.sites";
                     $result = $conn->query($sites);
 
@@ -51,9 +76,9 @@ if (!isset($_SESSION['privilege'])) {
 
                     <div id='retour'>Résultats : </div>
 
-                    <!-- Affichage des résultats -->
-
-            </div>
+                    
+                </div>
+        </menu>
     </main>
 </body>
 
