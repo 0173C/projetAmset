@@ -43,8 +43,25 @@ menu.div {
 div#retour {
     border: 5px solid rgb(8, 97, 20);
     background-color: rgb(121, 197, 114);
+<<<<<<< HEAD
 }
 
 .button {
     cursor: pointer;
+=======
+    box-shadow:5px 5px 30px black;
+}
+
+.result{
+    background-color: white;
+    box-shadow:5px 5px 10px black;
+    border:1px solid black;
+    margin: 30px 15px;
+    padding: 1px;
+}
+
+.result:hover{
+    background-color:lightblue;
+    cursor:pointer;
+>>>>>>> 85c37e5be937dfd7cd40e26895ac87918695e6c8
 }

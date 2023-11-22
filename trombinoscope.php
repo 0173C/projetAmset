@@ -45,7 +45,7 @@ if (!isset($_SESSION['privilege'])) {
 
 <body>
     <main>
-        <div id="head"><button id="logout" onClick= logout()>Se déconnecter</button></div>
+        <div id="head"><button id="logout" onClick=logout()>Se déconnecter</button></div>
         <menu id="searchbar">
             <div id="site">
                 <menu id="searchbar">
@@ -74,11 +74,41 @@ if (!isset($_SESSION['privilege'])) {
 
                     ?>
 
-                    <div id='retour'>Résultats : </div>
+                    <div id='retour'>Résultats : 
+                    <?php
+                    
+                    include("connexion.php");
+                    $salarie = "SELECT * FROM fiche_salarie.salarie";
+                    $result = $conn->query($salarie);
 
+<<<<<<< HEAD
                     
                 </div>
         </menu>
+=======
+                    if ($result && $result->num_rows > 0) {
+                        while ($row = mysqli_fetch_array($result)) {
+                            $id_salarie = $row['idSalarie'];
+                            $nom = $row['nomSalarie'];
+                            $prenom = $row['prenomSalarie'];
+                            $site = $row['site'];
+
+                            echo "<div id='salarie_$id_salarie' onclick='redirectFicheSalarie($id_salarie)' class='result'>";
+                            echo "<p>Nom : $nom</p>";
+                            echo "<p>Prénom : $prenom</p>";
+                            echo "<p>Site : $site</p>";
+                            echo "</div>";
+                        }
+                    } else {
+                        echo "Aucun résultat trouvé.";
+                    }
+
+                    ?>
+                    <!-- Affichage des résultats -->
+                    </div>
+
+            </div>
+>>>>>>> 85c37e5be937dfd7cd40e26895ac87918695e6c8
     </main>
 </body>
 

@@ -1,16 +1,43 @@
 <?php
+<<<<<<< HEAD
 header('content-type: text/html; charset=utf-8');
 include("connexion.php"); // connexion BDD 
 include("index.php");
 include("connexion.php");
+=======
+include("index.php");
+echo '<link rel="stylesheet" href="./cv.css">';
+header('content-type: text/html; charset=utf-8');
+include("connexion.php"); // connexion BDD 
 
-$salarie = "SELECT * FROM fiche_salarie.salarie WHERE idSalarie = 1 ";
+if (isset($_GET["id"])) {
+    $id = $_GET["id"];
+} else {
+    echo "Erreur";
+}
+>>>>>>> 85c37e5be937dfd7cd40e26895ac87918695e6c8
+
+$salarie = "SELECT * FROM fiche_salarie.salarie WHERE idSalarie = $id ";
 $result = $conn->query($salarie);
 
 echo "<button id='disconnect'>Se déconnecter</button>";
-
-while ($row = mysqli_fetch_array($result))
-    foreach ($result as $row => $salarie) {
-        echo $row['idSalarie'] . '' . $row['nomSalarie'] . '' . $row['prenomSalarie'] . '' . $row['civilite'] . '' . $row['email'] . '' . $row['telephonne'] . '' . $row['adresse'] . '' . $row['codePostal'] . '' . $row['ville'] . '' . $row['site'] . '' . $row['competences'] . '<br>';
+/*
+while ($row = $result->fetch_array())
+    foreach ($row as $key => $value) {
+        echo '<div id="' . $key . '">' . $value . '</div>';
     }
+*/
+
+$previousValue = null;
+
+echo'<body><div id=content>';
+while ($row = $result->fetch_array()) {
+    foreach ($row as $key => $value) {
+        if ($value !== $previousValue) {
+            echo '<div id="' . $key . '">' . $value . '</div>';
+            $previousValue = $value;
+        }
+    }
+}
+echo'</div></body>';
 ?>
