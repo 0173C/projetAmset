@@ -18,7 +18,7 @@ if (!isset($_SESSION['privilege'])) {
     <script src="script.js"></script>
     <script>
         function fetchSalarieData() {
-            fetch('') 
+            fetch('')
                 .then(response => response.json())
                 .then(data => {
                     let retourDiv = document.getElementById('retour');
@@ -46,69 +46,60 @@ if (!isset($_SESSION['privilege'])) {
 <body>
     <main>
         <div id="head"><button id="logout" onClick=logout()>Se déconnecter</button></div>
-        <menu id="searchbar">
-            <div id="site">
-                <menu id="searchbar">
-                    <?php
-                    include("connexion.php");
-                    $competences = "SELECT nomCompetence FROM fiche_salarie.competences";
-                    $result = $conn->query($competences);
+        <div id="site">
+            <menu id="searchbar">
+                <?php
+                include("connexion.php");
+                $competences = "SELECT nomCompetence FROM fiche_salarie.competences";
+                $result = $conn->query($competences);
 
-                    echo '<div id="menu_competence">'; 
+                echo '<div id="menu_competence">';
+                while ($row = mysqli_fetch_array($result)) {
+                    echo '<div class="button"><input type="checkbox" class="searchbar_option_competence" id="' . $row['nomCompetence'] . '" name="' . $row['nomCompetence'] . '">' . $row['nomCompetence'] . '</input></div>';
+                }
+
+                echo '</div></br>
+                <div id="menu_site">';
+
+                $sites = "SELECT nomSite FROM fiche_salarie.sites";
+                $result = $conn->query($sites);
+
+                while ($row = mysqli_fetch_array($result)) {
+                    echo '<div class="button"><input type="checkbox" class="searchbar_option_sites" id="' . $row['nomSite'] . '">' . $row['nomSite'] . '</input></div>';
+                }
+
+                echo '</div></br> <button type="button" id="recherche" onclick="rechercher()">Rechercher</button></menu>';
+                echo $_SESSION['privilege'];
+
+                ?>
+            </menu>
+
+            <div id='retour'>Résultats :
+                <?php
+
+                include("connexion.php");
+                $salarie = "SELECT * FROM fiche_salarie.salarie";
+                $result = $conn->query($salarie);
+                if ($result && $result->num_rows > 0) {
                     while ($row = mysqli_fetch_array($result)) {
-                        echo '<div class="button"><input type="checkbox" class="searchbar_option_competence" id="' . $row['nomCompetence'] . '" name="' . $row['nomCompetence'] . '">' . $row['nomCompetence'] . '</input></div>';
+                        $id_salarie = $row['idSalarie'];
+                        $nom = $row['nomSalarie'];
+                        $prenom = $row['prenomSalarie'];
+                        $site = $row['site'];
+                        echo "<div id='salarie_$id_salarie' onclick='redirectFicheSalarie($id_salarie)' class='result'>";
+                        echo "<p>Nom : $nom</p>";
+                        echo "<p>Prénom : $prenom</p>";
+                        echo "<p>Site : $site</p>";
+                        echo "</div>";
                     }
-
-                    echo '</div></br>
-                <div id="menu_site">'; 
-
-                    $sites = "SELECT nomSite FROM fiche_salarie.sites";
-                    $result = $conn->query($sites);
-
-                    while ($row = mysqli_fetch_array($result)) {
-                        echo '<div class="button"><input type="checkbox" class="searchbar_option_sites" id="' . $row['nomSite'] . '">' . $row['nomSite'] . '</input></div>';
-                    }
-
-                    echo '</div></br> <button type="button" id="recherche" onclick="rechercher()">Rechercher</button></menu>';
-                    echo $_SESSION['privilege'];
-
-                    ?>
-
-                    <div id='retour'>Résultats : 
-                    <?php
-                    
-                    include("connexion.php");
-                    $salarie = "SELECT * FROM fiche_salarie.salarie";
-                    $result = $conn->query($salarie);
-
-<<<<<<< HEAD
-                    
-                </div>
-        </menu>
-=======
-                    if ($result && $result->num_rows > 0) {
-                        while ($row = mysqli_fetch_array($result)) {
-                            $id_salarie = $row['idSalarie'];
-                            $nom = $row['nomSalarie'];
-                            $prenom = $row['prenomSalarie'];
-                            $site = $row['site'];
-
-                            echo "<div id='salarie_$id_salarie' onclick='redirectFicheSalarie($id_salarie)' class='result'>";
-                            echo "<p>Nom : $nom</p>";
-                            echo "<p>Prénom : $prenom</p>";
-                            echo "<p>Site : $site</p>";
-                            echo "</div>";
-                        }
-                    } else {
-                        echo "Aucun résultat trouvé.";
-                    }
-
-                    ?>
-                    <!-- Affichage des résultats -->
-                    </div>
-
+                } else {
+                    echo "Aucun résultat trouvé.";
+                }
+                ?>
+                <!-- Affichage des résultats -->
+                
             </div>
->>>>>>> 85c37e5be937dfd7cd40e26895ac87918695e6c8
+        </div>
     </main>
 </body>
 

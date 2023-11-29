@@ -1,10 +1,4 @@
 <?php
-<<<<<<< HEAD
-header('content-type: text/html; charset=utf-8');
-include("connexion.php"); // connexion BDD 
-include("index.php");
-include("connexion.php");
-=======
 include("index.php");
 echo '<link rel="stylesheet" href="./cv.css">';
 header('content-type: text/html; charset=utf-8');
@@ -15,7 +9,6 @@ if (isset($_GET["id"])) {
 } else {
     echo "Erreur";
 }
->>>>>>> 85c37e5be937dfd7cd40e26895ac87918695e6c8
 
 $salarie = "SELECT * FROM fiche_salarie.salarie WHERE idSalarie = $id ";
 $result = $conn->query($salarie);
@@ -30,7 +23,7 @@ while ($row = $result->fetch_array())
 
 $previousValue = null;
 
-echo'<body><div id=content>';
+echo '<body><div id=content>';
 while ($row = $result->fetch_array()) {
     foreach ($row as $key => $value) {
         if ($value !== $previousValue) {
@@ -39,5 +32,5 @@ while ($row = $result->fetch_array()) {
         }
     }
 }
-echo'</div></body>';
+echo '</div></body>';
 ?>
