@@ -1,15 +1,16 @@
 <?php
 session_start();
 if (!isset($_SESSION['privilege'])) {
-    include("login.php");
+    header("Location: login.php");
 }
+var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>AmsetHR</title>
@@ -45,6 +46,7 @@ if (!isset($_SESSION['privilege'])) {
 
 <body>
     <main>
+        <!-- SE DECONNECTER -->
         <div id="head"><button id="logout" onClick=logout()>Se déconnecter</button></div>
         <div id="site">
             <menu id="searchbar">
@@ -69,13 +71,14 @@ if (!isset($_SESSION['privilege'])) {
                 }
 
                 echo '</div></br> <button type="button" id="recherche" onclick="rechercher()">Rechercher</button></menu>';
-                echo $_SESSION['privilege'];
-
+                echo $_SESSION['privilege'].' - '.$_SESSION['username'];
                 ?>
             </menu>
 
             <div id='retour'>Résultats :
                 <?php
+
+                /*                 <!-- Affichage des résultats -->             */
 
                 include("connexion.php");
                 $salarie = "SELECT * FROM fiche_salarie.salarie";
@@ -95,9 +98,10 @@ if (!isset($_SESSION['privilege'])) {
                 } else {
                     echo "Aucun résultat trouvé.";
                 }
+
+                /*                            ------                            */
+
                 ?>
-                <!-- Affichage des résultats -->
-                
             </div>
         </div>
     </main>

@@ -1,5 +1,5 @@
 <?php
-include("index.php");
+//include("index.php");
 echo '<link rel="stylesheet" href="./cv.css">';
 header('content-type: text/html; charset=utf-8');
 include("connexion.php"); // connexion BDD 
@@ -14,12 +14,6 @@ $salarie = "SELECT * FROM fiche_salarie.salarie WHERE idSalarie = $id ";
 $result = $conn->query($salarie);
 
 echo "<button id='disconnect'>Se déconnecter</button>";
-/*
-while ($row = $result->fetch_array())
-    foreach ($row as $key => $value) {
-        echo '<div id="' . $key . '">' . $value . '</div>';
-    }
-*/
 
 $previousValue = null;
 

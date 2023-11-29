@@ -17,13 +17,15 @@
             <label><b>Mot de passe</b></label>
             <input type="password" placeholder="Mot de passe" name="password" required>
 
-            <input type="submit" id='submit' value='LOGIN'>
+            <input type="submit" id='submit' value='Se connecter'>
             <?php
             if (isset($_GET['erreur'])) {
                 $err = $_GET['erreur'];
                 if ($err == 1 || $err = 2)
                     echo "<p style='color:red'>Utilisateur ou Mot de passe incorrect</p>";
             }
+
+            var_dump($_SESSION);
             ?>
     </div>
 </body>
