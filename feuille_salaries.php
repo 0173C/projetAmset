@@ -2,7 +2,7 @@
 include("index.php");
 echo '<link rel="stylesheet" href="./cv.css">';
 header('content-type: text/html; charset=utf-8');
-include("connexion.php"); 
+include("connexion.php"); // connexion BDD
 
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
