@@ -12,7 +12,7 @@ if (isset($_GET["id"])) {
 
 $salarie = "SELECT s.nomSalarie, s.prenomSalarie, s.site, s.competences, st.nomSite 
             FROM fiche_salarie.salarie s
-            LEFT JOIN fiche_salarie.sites st ON s.site = st.idSite";
+            LEFT JOIN fiche_salarie.sites st ON s.site = st.idSite WHERE idSalarie = $id";
 
 $result = $conn->query($salarie);
 
