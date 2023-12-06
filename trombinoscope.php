@@ -55,21 +55,27 @@ if (!isset($_SESSION['privilege'])) {
                 /*                 <!-- Affichage des résultats -->             */
 
                 include("connexion.php");
-                $sql1="SELECT * FROM fiche_salarie.salarie";
-                $sql_joinSite="INNER JOIN sites ON salarie.site=sites.idSite";
-                $sql_joinComp="INNER JOIN competences ON salarie.competences=competences.idCompetence";
-                $sql_where="WHERE sites.nomSite='.\$_POST['retourTab'][0].' OR competences.nomCompetence='.\$_POST['retourTab'][0]";
-                if (!isset($_POST['retourTab']) or count($_POST['retourTab'])==0) {
-                    $salarie = $sql1;
-                } else if (count($_POST['retourTab'])==1) {
-                    $salarie = $sql1." ".$sql_joinSite." ".$sql_joinComp." ".$sql_where;
-                } else if (count($_POST['retourTab'])>1) {
-                    $salarie = $sql1." ".$sql_joinSite." ".$sql_joinComp." ".$sql_where;
+                $arraySites = ['Paris', 'Madrid', 'Montréal', 'Casablanca'];
+                $arrayComp = ['devWeb', 'integrationAppli', 'conceptionAppli', 'adminSIR', 'devObj'];
+                $sql1 = "SELECT * FROM fiche_salarie.salarie";
+                $sql_join = "INNER JOIN sites ON sql_salarie.site=sites.idSite INNER JOIN competences ON sql_salarie.competences=competences.idCompetence";
+                if (!isset($_POST['retourTab']) or count($_POST['retourTab']) == 0) {
+                    $sql_salarie = $sql1;
+                } else {
+                    $sql_salarie = $sql1 . $sql_join . " WHERE ";
+                    foreach ($_POST['retourTab'] as $v) {
+                        if (in_array($v, $arraySites)) {
+                            $sql_salarie += 'sites=\'' . $v . '\' ';
+                        } else if (in_array($v, $arrayComp)) {
+                            $sql_salarie += 'competences=\'' . $v . '\' ';
+                        }
+                        if ($v != $_POST['retourTab'][count($_POST['retourTab']) - 1]) {
+                            $sql_salarie += ' OR ';
+                        }
+                    }
                 }
-
-
-
-                    $result = $conn->query($salarie);
+                echo($sql_salarie);
+                $result = $conn->query($sql_salarie);
                 if ($result && $result->num_rows > 0) {
                     while ($row = mysqli_fetch_array($result)) {
                         $id_salarie = $row['idSalarie'];
