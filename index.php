@@ -11,9 +11,7 @@ if (!isset($_SESSION['privilege'])) {
     $_SESSION['privilege'] = 'visitor';
     header("Location: login.php");
 } else {
-    if(isset($_SESSION['username'])){
-        header('Location: trombinoscope.php');
-    } else {
+    if(!isset($_SESSION['username'])){
         header('Location: login.php');
     }
 }
