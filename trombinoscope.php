@@ -3,7 +3,6 @@ session_start();
 if (!isset($_SESSION['privilege'])) {
     header("Location: login.php");
 }
-var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +56,7 @@ var_dump($_SESSION);
 
                 echo '<div id="menu_competence">';
                 while ($row = mysqli_fetch_array($result)) {
-                    echo '<div class="button"><input type="checkbox" class="searchbar_option_competence" id="' . $row['nomCompetence'] . '" name="' . $row['nomCompetence'] . '">' . $row['nomCompetence'] . '</input></div>';
+                    echo '<div class="button" onclick="toggleCheckbox(\''.$row['nomCompetence'].'\')"><input type="checkbox" class="searchbar_option_competence" id="' . $row['nomCompetence'] . '" name="' . $row['nomCompetence'] . '">' . $row['nomCompetence'] . '</input></div>';
                 }
 
                 echo '</div></br>
@@ -67,11 +66,10 @@ var_dump($_SESSION);
                 $result = $conn->query($sites);
 
                 while ($row = mysqli_fetch_array($result)) {
-                    echo '<div class="button"><input type="checkbox" class="searchbar_option_sites" id="' . $row['nomSite'] . '">' . $row['nomSite'] . '</input></div>';
+                    echo '<div class="button" onclick="toggleCheckbox(\''.$row['nomSite'].'\')"><input type="checkbox" class="searchbar_option_sites" id="' . $row['nomSite'] . '">' . $row['nomSite'] . '</input></div>';
                 }
 
                 echo '</div></br> <button type="button" id="recherche" onclick="rechercher()">Rechercher</button></menu>';
-                echo $_SESSION['privilege'].' - '.$_SESSION['username'];
                 ?>
             </menu>
 

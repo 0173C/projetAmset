@@ -1,5 +1,5 @@
 <?php
-//include("index.php");
+include("index.php");
 echo '<link rel="stylesheet" href="./cv.css">';
 header('content-type: text/html; charset=utf-8');
 include("connexion.php"); // connexion BDD 
