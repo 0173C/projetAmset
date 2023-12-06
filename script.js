@@ -1,7 +1,3 @@
-function toggleCheckbox(element) {
-    element.checked = !element.checked;
-}
-
 function testCheckbox(element) {
     if (element.checked == true) {
         return true;
@@ -36,4 +32,36 @@ function toggleCheckbox(id) {
     } else {
         console.error('Checkbox element not found with ID:', id);
     }
+}
+
+function rechercher() {
+    var checkboxComp = document.getElementById("menu_competence");
+    var checkboxesC = checkboxComp.querySelectorAll('input[type="checkbox"]');
+    var checkboxSite = document.getElementById("menu_site");
+    var checkboxesS = checkboxSite.querySelectorAll('input[type="checkbox"]');
+    var retourTab = [];
+    checkboxesC.forEach(function(checkbox) {
+        if (checkbox.checked) {
+            retourTab.push(checkbox.id);
+        }
+    });
+    checkboxesS.forEach(function(checkbox) {
+        if (checkbox.checked) {
+            retourTab.push(checkbox.id);
+        }
+    })
+    console.log(retourTab);
+    fetch('trombinoscope.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ valeurs: retourTab })
+        .then(response => {
+            console.log('Envoyé')
+        })
+        .catch(error => {
+            console.log('Erreur')
+        })
+    })
 }

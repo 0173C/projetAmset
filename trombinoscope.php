@@ -16,31 +16,6 @@ if (!isset($_SESSION['privilege'])) {
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="icon.png" type="image/x-icon">
     <script src="script.js"></script>
-    <script>
-        function fetchSalarieData() {
-            fetch('')
-                .then(response => response.json())
-                .then(data => {
-                    let retourDiv = document.getElementById('retour');
-                    data.forEach(salarie => {
-                        retourDiv.innerHTML += `<div>
-                            <p>Nom: ${salarie.nomSalarie}</p>
-                            <p>Prénom: ${salarie.prenomSalarie}</p>
-                            <p>Civilite: ${salarie.civilite}</p>
-                            <p>Email: ${salarie.email}</p>
-                            <!-- Ajoutez d'autres données que vous souhaitez afficher -->
-                        </div>`;
-                    });
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la récupération des données:', error);
-                });
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            fetchSalarieData();
-        });
-    </script>
 </head>
 
 <body>
@@ -56,20 +31,21 @@ if (!isset($_SESSION['privilege'])) {
 
                 echo '<div id="menu_competence">';
                 while ($row = mysqli_fetch_array($result)) {
-                    echo '<div class="button" onclick="toggleCheckbox(\''.$row['nomCompetence'].'\')"><input type="checkbox" class="searchbar_option_competence" id="' . $row['nomCompetence'] . '" name="' . $row['nomCompetence'] . '">' . $row['nomCompetence'] . '</input></div>';
+                    echo '<div class="button" onclick="toggleCheckbox(\'' . $row['nomCompetence'] . '\')"><input type="checkbox" class="searchbar_option_competence" id="' . $row['nomCompetence'] . '" name="' . $row['nomCompetence'] . '">' . $row['nomCompetence'] . '</input></div>';
                 }
 
                 echo '</div></br>
-                <div id="menu_site">';
-
+                <div id="menu_site">'; // RETIRER LE </br> si CSS
+                
+                // Affichage des cases des sites
                 $sites = "SELECT nomSite FROM fiche_salarie.sites";
                 $result = $conn->query($sites);
 
                 while ($row = mysqli_fetch_array($result)) {
-                    echo '<div class="button" onclick="toggleCheckbox(\''.$row['nomSite'].'\')"><input type="checkbox" class="searchbar_option_sites" id="' . $row['nomSite'] . '">' . $row['nomSite'] . '</input></div>';
+                    echo '<div class="button" onclick="toggleCheckbox(\'' . $row['nomSite'] . '\')"><input type="checkbox" class="searchbar_option_sites" id="' . $row['nomSite'] . '">' . $row['nomSite'] . '</input></div>';
                 }
 
-                echo '</div></br> <button type="button" id="recherche" onclick="rechercher()">Rechercher</button></menu>';
+                echo '</div></br> <button type="button" id="recherche" onclick="rechercher()">Rechercher</button></menu>'; // RETIRER LE </br> si CSS
                 ?>
             </menu>
 
@@ -79,8 +55,21 @@ if (!isset($_SESSION['privilege'])) {
                 /*                 <!-- Affichage des résultats -->             */
 
                 include("connexion.php");
-                $salarie = "SELECT * FROM fiche_salarie.salarie";
-                $result = $conn->query($salarie);
+                $sql1="SELECT * FROM fiche_salarie.salarie";
+                $sql_joinSite="INNER JOIN sites ON salarie.site=sites.idSite";
+                $sql_joinComp="INNER JOIN competences ON salarie.competences=competences.idCompetence";
+                $sql_where="WHERE sites.nomSite='.\$_POST['retourTab'][0].' OR competences.nomCompetence='.\$_POST['retourTab'][0]";
+                if (!isset($_POST['retourTab']) or count($_POST['retourTab'])==0) {
+                    $salarie = $sql1;
+                } else if (count($_POST['retourTab'])==1) {
+                    $salarie = $sql1." ".$sql_joinSite." ".$sql_joinComp." ".$sql_where;
+                } else if (count($_POST['retourTab'])>1) {
+                    $salarie = $sql1." ".$sql_joinSite." ".$sql_joinComp." ".$sql_where;
+                }
+
+
+
+                    $result = $conn->query($salarie);
                 if ($result && $result->num_rows > 0) {
                     while ($row = mysqli_fetch_array($result)) {
                         $id_salarie = $row['idSalarie'];

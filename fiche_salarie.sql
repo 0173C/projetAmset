@@ -41,8 +41,8 @@ CREATE TABLE IF NOT EXISTS `competences` (
 INSERT INTO `competences` (`idCompetence`, `nomCompetence`) VALUES
 (1, 'Devellopement objet'),
 (2, 'Administration système et réseau'),
-(3, 'Conception d\'application'),
-(4, 'Intégration d\'applications'),
+(3, "Conception d'application"),
+(4, "Intégration d'applications"),
 (5, 'Dévellopement web');
 
 -- --------------------------------------------------------
