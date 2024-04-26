@@ -27,6 +27,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         // ---
         if ($count != 0) {
             $_SESSION['username'] = $username;
+            $_SESSION['privilege'] = "visiteur";
             header('Location: trombinoscope.php');
         } else {
             header('Location: login.php?erreur=1');
