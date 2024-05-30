@@ -1,11 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['privilege'])) {
-    header("Location: login.php");
-    exit(); // Arrête l'exécution du script après la redirection
-}
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -21,46 +13,73 @@ if (!isset($_SESSION['privilege'])) {
 
 <body>
     <main>
-        <!-- DECONNEXION -->
+        <!-- SE DECONNECTER -->
         <div id="head"><button id="logout" onClick=logout()>Se déconnecter</button></div>
         <div id="site">
             <menu id="searchbar">
+                <!-- Lien vers la page de création des compétences -->
+                <a href="new_competences.php">Créer une nouvelle compétence</a>
+                <!-- Fin du lien -->
+
                 <?php
                 include("connexion.php");
-                
-                // Affichage des cases à cocher pour les compétences
-                $competences = "SELECT nomCompetence FROM fiche_salarie.competences";
-                $result = $conn->query($competences);
-                echo '<div id="menu_competence">';
-                while ($row = mysqli_fetch_array($result)) {
-                    echo '<div class="button" onclick="toggleCheckbox(\'' . $row['nomCompetence'] . '\')">
-                          <input type="checkbox" class="searchbar_option_competence" id="' . $row['nomCompetence'] . '" name="' . $row['nomCompetence'] . '">' . $row['nomCompetence'] . '</input></div>';
+
+                // Récupération des compétences disponibles
+                $competences_query = "SELECT nomCompetence FROM competences";
+                $competences_result = $conn->query($competences_query);
+
+                echo '<div id="competences">';
+                echo '<h2>Compétences</h2>';
+                echo '<form action="trombinoscope.php" method="POST">';
+                if ($competences_result->num_rows > 0) {
+                    while ($row = $competences_result->fetch_assoc()) {
+                        echo '<input type="checkbox" name="competences[]" value="' . $row['nomCompetence'] . '">' . $row['nomCompetence'] . '<br>';
+                    }
                 }
-                echo '</div></br>
-                      <div id="menu_site">'; // RETIRER LE </br> si CSS
-                
-                // Affichage des cases à cocher pour les sites
-                $sites = "SELECT nomSite FROM fiche_salarie.sites";
-                $result = $conn->query($sites);
-                while ($row = mysqli_fetch_array($result)) {
-                    echo '<div class="button" onclick="toggleCheckbox(\'' . $row['nomSite'] . '\')">
-                          <input type="checkbox" class="searchbar_option_sites" id="' . $row['nomSite'] . '">' . $row['nomSite'] . '</input></div>';
-                }
-                echo '</div></br> <button type="button" id="recherche" onclick="rechercher()">Rechercher</button></menu>'; // RETIRER LE </br> si CSS
+                echo '<input type="submit" value="Rechercher">';
+                echo '</form>';
+                echo '</div>';
                 ?>
             </menu>
 
             <div id='retour'>Résultats :
                 <?php
-                // Traitement de la requête de recherche
-                $content = trim(file_get_contents("php://input"));
-                $data = json_decode($content, true);
-                
-                // Affichage des données reçues de la requête
-                echo json_encode($data);
-                
-                // Construction de la requête SQL en fonction des critères de recherche
-                // ...
+                // Construction de la requête SQL pour récupérer les salariés
+                $sql_salarie = "SELECT * FROM salarie";
+
+                // Vérification si des compétences sont sélectionnées dans le formulaire
+                if (isset($_POST['competences'])) {
+                    // Construction de la clause WHERE pour la recherche par compétences
+                    $competences = $_POST['competences'];
+                    $where_clause = " WHERE ";
+                    foreach ($competences as $competence) {
+                        $where_clause .= "competences LIKE '%$competence%' OR ";
+                    }
+                    $where_clause = rtrim($where_clause, " OR ");
+
+                    // Ajout de la clause WHERE à la requête SQL existante
+                    $sql_salarie .= $where_clause;
+                }
+
+                // Exécution de la requête SQL
+                $result = $conn->query($sql_salarie);
+
+                // Affichage des résultats
+                if ($result && $result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $id_salarie = $row['idSalarie'];
+                        $nom = $row['nomSalarie'];
+                        $prenom = $row['prenomSalarie'];
+                        $site = $row['site'];
+                        echo "<div id='salarie_$id_salarie' onclick='redirectFicheSalarie($id_salarie)' class='result'>";
+                        echo "<p>Nom : $nom</p>";
+                        echo "<p>Prénom : $prenom</p>";
+                        echo "<p>Site : $site</p>";
+                        echo "</div>";
+                    }
+                } else {
+                    echo "Aucun résultat trouvé.";
+                }
                 ?>
             </div>
         </div>
