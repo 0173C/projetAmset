@@ -4,19 +4,6 @@ function testCheckbox(element) {
     }
 }
 
-function rechercher() {
-    // Vérification checkbox = True ou False
-    let madrid = document.getElementById('Madrid').checked;
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("retour").innerHTML = this.responseText;
-        }
-    };
-    xmlhttp.open("POST", "recherche.php");
-    xmlhttp.send();
-}
-
 function logout() {
     window.location.href = "logout.php"
 }
@@ -40,39 +27,38 @@ function rechercher() {
     var checkboxSite = document.getElementById("menu_site");
     var checkboxesS = checkboxSite.querySelectorAll('input[type="checkbox"]');
     var retourTab = [];
-    checkboxesC.forEach(function(checkbox) {
+
+    // Parcourir les checkboxes de "menu_competence"
+    checkboxesC.forEach(function (checkbox) {
         if (checkbox.checked) {
             retourTab.push(checkbox.id);
         }
     });
-    checkboxesS.forEach(function(checkbox) {
+
+    // Parcourir les checkboxes de "menu_site"
+    checkboxesS.forEach(function (checkbox) {
         if (checkbox.checked) {
             retourTab.push(checkbox.id);
         }
-    })
-    /*      -- AJAX REQUETE --
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("txtHint").innerHTML = this.responseText;
-        }
-      };
-      xmlhttp.open("GET", "trombinoscope.php?q=" + str, true);
-      xmlhttp.send();
-      */ 
+    });
 
-    console.log(retourTab);
+    // Envoyer la requête fetch avec POST et JSON stringify de retourTab
     fetch('trombinoscope.php', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json; charset=UTF-8'
         },
-        body: JSON.stringify({ valeurs: retourTab })
+        body: JSON.stringify(retourTab)
+    })
         .then(response => {
-            console.log('Envoyé')
+            if (response.ok) {
+                console.log(retourTab);
+                window.location.href = 'trombinoscope.php'
+            } else {
+                console.error('Erreur lors de la réponse de fetch');
+            }
         })
         .catch(error => {
-            console.log('Erreur')
-        })
-    })
+            console.error('Erreur:', error);
+        });
 }

@@ -25,7 +25,7 @@ if (!isset($_SESSION['privilege'])) {
         <div id="site">
             <menu id="searchbar">
                 <?php
-                include("connexion.php");
+                include ("connexion.php");
                 $competences = "SELECT nomCompetence FROM fiche_salarie.competences";
                 $result = $conn->query($competences);
 
@@ -51,18 +51,25 @@ if (!isset($_SESSION['privilege'])) {
 
             <div id='retour'>Résultats :
                 <?php
+                $content = trim(file_get_contents("php://input"));
+                $data = json_decode($content, true);
+                $data['success'] = true;
+                echo json_encode($data);
+                
+                var_dump($data);
 
                 /*                 <!-- Affichage des résultats -->             */
 
-                include("connexion.php");
+                include ("connexion.php");
                 $arraySites = ['Paris', 'Madrid', 'Montréal', 'Casablanca'];
                 $arrayComp = ['devWeb', 'integrationAppli', 'conceptionAppli', 'adminSIR', 'devObj'];
-                $sql1 = "SELECT * FROM fiche_salarie.salarie";
+                $default_sql_request = "SELECT * FROM fiche_salarie.salarie";
                 $sql_join = "INNER JOIN sites ON sql_salarie.site=sites.idSite INNER JOIN competences ON sql_salarie.competences=competences.idCompetence";
+
                 if (!isset($_POST['retourTab']) or count($_POST['retourTab']) == 0) {
-                    $sql_salarie = $sql1;
+                    $sql_salarie = $default_sql_request;
                 } else {
-                    $sql_salarie = $sql1 . $sql_join . " WHERE ";
+                    $sql_salarie = $default_sql_request . $sql_join . " WHERE ";
                     foreach ($_POST['retourTab'] as $v) {
                         if (in_array($v, $arraySites)) {
                             $sql_salarie += 'sites=\'' . $v . '\' ';
@@ -74,7 +81,16 @@ if (!isset($_SESSION['privilege'])) {
                         }
                     }
                 }
-                echo($sql_salarie);
+
+                //TEST----
+                $test1 = !isset($_POST['retourTab']);
+                $test2 = count($_POST['retourTab']);
+                echo $_POST['retourTab'] . "</br>" . $test1 . "</br>" . $test2 . "</br>";
+                var_dump($_POST['retourTab']);
+                var_dump($_POST);
+                echo ($sql_salarie);
+                // -----
+                
                 $result = $conn->query($sql_salarie);
                 if ($result && $result->num_rows > 0) {
                     while ($row = mysqli_fetch_array($result)) {
