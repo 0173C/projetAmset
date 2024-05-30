@@ -14,7 +14,7 @@
             <h1>Nouvelle Compétence</h1>
             <label><b>Nom de la compétence</b></label>
             <input type="text" placeholder="Nom de la compétence" name="competence" required>
-            <input type="submit" id='submit' value='Enregistrer'>
+            <input type="submit" value="Enregistrer">
         </form>
     </div>
 </body>
