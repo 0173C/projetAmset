@@ -5,16 +5,19 @@ function testCheckbox(element) {
 }
 
 function logout() {
+    // Redirection vers la page de déconnexion
     window.location.href = "logout.php"
 }
 
 function redirectFicheSalarie(id) {
+    // Redirection vers la page de feuille de salarié avec l'ID spécifié
     window.location.href = 'feuille_salaries.php?id=' + id;
 }
 
 function toggleCheckbox(id) {
     const checkbox = document.getElementById(id)
     if (checkbox) {
+        // Inversion de l'état de la case à cocher
         checkbox.checked = !checkbox.checked;
     } else {
         console.error('Checkbox element not found with ID:', id);
@@ -28,21 +31,21 @@ function rechercher() {
     var checkboxesS = checkboxSite.querySelectorAll('input[type="checkbox"]');
     var retourTab = [];
 
-    // Parcourir les checkboxes de "menu_competence"
+    // Parcours des cases à cocher du menu compétence
     checkboxesC.forEach(function (checkbox) {
         if (checkbox.checked) {
             retourTab.push(checkbox.id);
         }
     });
 
-    // Parcourir les checkboxes de "menu_site"
+    // Parcours des cases à cocher du menu site
     checkboxesS.forEach(function (checkbox) {
         if (checkbox.checked) {
             retourTab.push(checkbox.id);
         }
     });
 
-    // Envoyer la requête fetch avec POST et JSON stringify de retourTab
+    // Envoi de la requête fetch avec POST et JSON.stringify de retourTab
     fetch('trombinoscope.php', {
         method: 'POST',
         headers: {
@@ -53,6 +56,7 @@ function rechercher() {
         .then(response => {
             if (response.ok) {
                 console.log(retourTab);
+                // Redirection vers la page de trombinoscope
                 window.location.href = 'trombinoscope.php'
             } else {
                 console.error('Erreur lors de la réponse de fetch');

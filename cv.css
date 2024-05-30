@@ -1,16 +1,16 @@
-body div{
+body div {
     background-color: lightgray;
     width: 100%;
-    height: 100%;
+    height: 100vh; /* Assure que la hauteur est 100% de la vue */
 }
 
-div div{
-    padding:5px 10px;
-    margin:2.5%;
-    border:1px solid black;
+div div {
+    padding: 5px 10px;
+    margin: 2.5%;
+    border: 1px solid black;
     box-shadow: 5px 10px 10px black;
     width: 20%;
-    height: 10%;
-    display:list-item;
+    height: 10%; /* Cette valeur est très petite. Assure-toi que c'est ce que tu veux */
+    display: block; /* list-item est inhabituel pour un div */
     background-color: white;
 }
